@@ -17,7 +17,3 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-# Android
-.gradle
-local.properties
-
