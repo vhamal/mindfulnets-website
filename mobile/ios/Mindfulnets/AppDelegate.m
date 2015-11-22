@@ -31,7 +31,9 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.58:8081/index.ios.bundle?platform=ios&dev=true"];
+  NSString *host = [[[NSProcessInfo processInfo] environment] objectForKey:@"XCODE_HOST"];
+  NSString *url = [NSString stringWithFormat: @"http://%@:8081/index.ios.bundle?platform=ios&dev=true", host];
+  jsCodeLocation = [NSURL URLWithString:url];
 
   /**
    * OPTION 2
