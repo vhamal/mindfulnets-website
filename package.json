@@ -7,10 +7,13 @@
     "body-parser": "^1.4.3",
     "express": "^4.4.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "react-native": "^0.14.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "web-server": "node server.js",
+    "react-native-packager": "react-native start"
   },
   "repository": {
     "type": "git",

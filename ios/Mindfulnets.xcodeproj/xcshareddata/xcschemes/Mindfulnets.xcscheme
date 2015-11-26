@@ -88,7 +88,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "XCODE_HOST"
-            value = "localhost"
+            value = "192.168.1.58"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
