@@ -10,6 +10,6 @@ var TimerBox = React.createClass({
 });
 
 ReactDOM.render(
-  <TimerBox url="/api/meditations" pollInterval={2000} />,
+  <TimerBox/>,
   document.getElementById('content')
 );
