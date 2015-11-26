@@ -9,5 +9,5 @@ Port can be changed by setting the `$PORT` environment variable before invoking 
 
 # iOS
 
-Open `mobile/ios/Mindfulnets.xcodeproj` with XCode and hit cmd-R.
+Start with `npm install` then open `ios/Mindfulnets.xcodeproj` with XCode and hit cmd-R.
 To run on a development device, set Mindfulnets > Edit Scheme... > Run > Arguments > Environment Variables > `XCODE_HOST` to the actual IP address of the computer running XCode.
