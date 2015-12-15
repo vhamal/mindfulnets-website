@@ -2,16 +2,24 @@
   "name": "mindfulnets",
   "version": "0.0.0",
   "description": "Exercise your brain -- together",
-  "main": "server.js",
+  "license" : "GPL-3.0",
   "dependencies": {
-    "body-parser": "^1.4.3",
-    "express": "^4.4.5"
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-loader": "^5.4.0",
+    "babel-plugin-react-transform": "^1.1.1",
+    "css-loader": "^0.23.0",
+    "html-webpack-plugin": "^1.7.0",
+    "react-transform-hmr": "^1.0.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0",
+    "webpack-merge": "^0.3.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "web-server": "node server.js",
-    "react-native-packager": "react-native start"
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -26,8 +34,5 @@
   "bugs": {
     "url": "https://github.com/sedubois/mindfulnets/issues"
   },
-  "homepage": "https://github.com/sedubois/mindfulnets",
-  "engines" : {
-    "node" : "0.12.x"
-  }
+  "homepage": "https://github.com/sedubois/mindfulnets"
 }
