@@ -1,4 +1,7 @@
 import React from 'react';
+import bellFile from './bell.wav';
+
+var bell = new Audio(bellFile);
 
 export default class Timer extends React.Component {
 	checkTime() {
@@ -6,6 +9,7 @@ export default class Timer extends React.Component {
 
     if(this.remainingSeconds < 0) {
       window.clearInterval(this.timer);
+      bell.play();
     }
 	}
 

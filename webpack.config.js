@@ -14,7 +14,7 @@ process.env.BABEL_ENV = TARGET;
 var common = {
   entry: PATHS.app,
   resolve: {
-    extensions: ['','.js','.jsx']
+    extensions: ['','.js','.jsx','.wav']
   },
   module: {
     loaders: [
@@ -25,14 +25,19 @@ var common = {
       },
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
+        loader: 'babel',
+        include: PATHS.app
+      },
+      {
+        test: /\.wav$/,
+        loader: 'file',
         include: PATHS.app
       }
     ]
   },
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'Kanban app'
+      title: 'Timer app'
     })
   ]
 };
