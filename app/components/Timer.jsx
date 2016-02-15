@@ -1,24 +1,26 @@
 import React from 'react';
-import moment from 'moment';
 
 export default class Timer extends React.Component {
-	setTime() {
-		this.setState({
-			moment: moment().format('MMMM Do YYYY, HH:mm:ss')
-		});
+	checkTime() {
+		this.setState({ remainingSeconds: this.remainingSeconds-- });
+
+    if(this.remainingSeconds < 0) {
+      window.clearInterval(this.timer);
+    }
 	}
 
 	componentWillMount() {
-    this.setTime();
+    this.remainingSeconds = 10;
+    this.checkTime();
 	}
 
 	componentDidMount() {
-		window.setInterval(function () {
-			this.setTime();
+		this.timer = window.setInterval(function () {
+			this.checkTime();
 		}.bind(this), 1000);
 	}
 
 	render() {
-		return <div>{this.state.moment}</div>;
+		return <div>{this.state.remainingSeconds}</div>;
 	}
 }
