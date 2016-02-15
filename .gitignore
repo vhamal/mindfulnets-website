@@ -11,3 +11,6 @@ npm-debug.log
 
 # Visual Studio code
 typings/
+
+# JetBrains IDEs
+.idea/
