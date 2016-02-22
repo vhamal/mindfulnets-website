@@ -17,7 +17,7 @@ export default class Timer extends React.Component {
 
   reset() {
     this.setState({remainingSeconds: this.durationMinutes * 60});
-    if (this.state.started) {
+    if (this.state && this.state.started) {
       this.startPause();
     }
   }
