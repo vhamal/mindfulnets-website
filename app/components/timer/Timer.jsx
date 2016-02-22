@@ -12,26 +12,28 @@ export default class Timer extends React.Component {
     this.setState({remainingSeconds: --this.state.remainingSeconds});
 
     if(this.state.remainingSeconds <= 0) {
-      this.stop();
+      this.startPause();
       bell.play();
     }
   }
 
   reset() {
     this.setState({remainingSeconds: initialTime});
-    this.stop();
+    if (this.state.started) {
+      this.startPause();
+    }
   }
 
-  start() {
-    this.setState({counting: true});
-    this.timer = window.setInterval(function () {
-      this.decrementAndCheck();
-    }.bind(this), 1000);
-  }
-
-  stop() {
-    this.setState({counting: false});
-    window.clearInterval(this.timer);
+  startPause() {
+    if (this.state.started) {
+      this.setState({started: false});
+      window.clearInterval(this.timer);
+    } else {
+      this.setState({started: true});
+      this.timer = window.setInterval(function () {
+        this.decrementAndCheck();
+      }.bind(this), 1000);
+    }
   }
 
   componentWillMount() {
@@ -40,7 +42,7 @@ export default class Timer extends React.Component {
 
   render() {
     const timeStyle = {
-      padding: '5px 5px 15px 5px'
+      padding: '5px'
     };
 
     const buttonStyle = {
@@ -59,22 +61,16 @@ export default class Timer extends React.Component {
         <div style={timeStyle}>{this.state.remainingSeconds}</div>
         <div>
           <button style={buttonStyle}
-            disabled={this.state.remainingSeconds == initialTime}
+            disabled={this.state.remainingSeconds == initialTime && !this.state.started}
             ref='reset'
             onClick={this.reset.bind(this)}>
               Reset
           </button>
           <button style={buttonStyle}
-            disabled={this.state.counting || this.state.remainingSeconds == 0}
-            ref='start'
-            onClick={this.start.bind(this)}>
-              Start
-          </button>
-          <button style={buttonStyle}
-            disabled={!this.state.counting}
-            ref='stop'
-            onClick={this.stop.bind(this)}>
-              Stop
+            disabled={this.state.remainingSeconds == 0}
+            ref='startPause'
+            onClick={this.startPause.bind(this)}>
+              {this.state.started ? "Pause" : "Start"}
           </button>
         </div>
       </div>
