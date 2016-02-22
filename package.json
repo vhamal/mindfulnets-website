@@ -4,7 +4,6 @@
   "description": "Exercise your brain -- together",
   "license": "GPL-3.0",
   "dependencies": {
-    "radium": "^0.16.6",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"
   },

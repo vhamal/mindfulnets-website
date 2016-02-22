@@ -1,11 +1,9 @@
 import React from 'react';
-import Radium from 'radium';
 import bellFile from './bell.wav';
 
 var bell = new Audio(bellFile);
-const totalSeconds = 5;
+const durationMinutes = [5, 10, 15, 20, 30, 45, 60];
 
-@Radium
 export default class Timer extends React.Component {
 
   decrementAndCheck() {
@@ -18,7 +16,7 @@ export default class Timer extends React.Component {
   }
 
   reset() {
-    this.setState({remainingSeconds: totalSeconds});
+    this.setState({remainingSeconds: this.durationMinutes * 60});
     if (this.state.started) {
       this.startPause();
     }
@@ -36,42 +34,45 @@ export default class Timer extends React.Component {
     }
   }
 
-  componentWillMount() {
+  setDuration(durationMinutes) {
+    this.durationMinutes = durationMinutes;
+    this.setState({durationMinutes: durationMinutes});
     this.reset();
   }
 
-  render() {
-    const timeStyle = {
-      padding: '5px'
-    };
+  componentWillMount() {
+    this.durationMinutes = durationMinutes[0];
+    this.setDuration(this.durationMinutes);
+  }
 
-    const buttonStyle = {
-      fontSize: '18px',
-      border: 'none',
-      background: 'cornsilk',
-      cursor: 'pointer',
-      padding: '3px',
-      ':hover': {
-        background: 'rgb(150, 181, 180)'
-      }
-    };
+  render() {
+    var durationButtons = durationMinutes.map(d =>
+      <button
+        disabled={this.state.remainingSeconds == d*60}
+        ref={'duration' + d}
+        onClick={this.setDuration.bind(this, d)}>
+        {d} min
+      </button>
+    );
 
     return (
       <div>
-        <div style={timeStyle}>{this.state.remainingSeconds}</div>
+        <div>{this.state.remainingSeconds} sec</div>
         <div>
-          <button style={buttonStyle}
-            disabled={this.state.remainingSeconds == totalSeconds && !this.state.started}
+          <button
+            disabled={this.state.remainingSeconds == this.state.durationMinutes * 60
+              && !this.state.started}
             ref='reset'
             onClick={this.reset.bind(this)}>
               Reset
           </button>
-          <button style={buttonStyle}
+          <button
             disabled={this.state.remainingSeconds == 0}
             ref='startPause'
             onClick={this.startPause.bind(this)}>
               {this.state.started ? "Pause" : "Start"}
           </button>
+          {durationButtons}
         </div>
       </div>
     );
