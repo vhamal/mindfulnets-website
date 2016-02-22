@@ -3,7 +3,7 @@ import Radium from 'radium';
 import bellFile from './bell.wav';
 
 var bell = new Audio(bellFile);
-const initialTime = 5;
+const totalSeconds = 5;
 
 @Radium
 export default class Timer extends React.Component {
@@ -18,7 +18,7 @@ export default class Timer extends React.Component {
   }
 
   reset() {
-    this.setState({remainingSeconds: initialTime});
+    this.setState({remainingSeconds: totalSeconds});
     if (this.state.started) {
       this.startPause();
     }
@@ -61,7 +61,7 @@ export default class Timer extends React.Component {
         <div style={timeStyle}>{this.state.remainingSeconds}</div>
         <div>
           <button style={buttonStyle}
-            disabled={this.state.remainingSeconds == initialTime && !this.state.started}
+            disabled={this.state.remainingSeconds == totalSeconds && !this.state.started}
             ref='reset'
             onClick={this.reset.bind(this)}>
               Reset
