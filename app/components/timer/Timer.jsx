@@ -1,8 +1,7 @@
 import React from 'react';
-import bellFile from './bell.wav';
 
-var bell = new Audio(bellFile);
-const durationMinutes = [5, 10, 15, 20, 30, 45, 60];
+var bell = new Audio(require('./bell.wav'));
+const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
 
 export default class Timer extends React.Component {
 
@@ -48,7 +47,7 @@ export default class Timer extends React.Component {
   render() {
     var durationButtons = durationMinutes.map(d =>
       <button
-        disabled={this.state.remainingSeconds == d*60}
+        disabled={this.state.remainingSeconds == d*60 || this.state.started}
         ref={'duration' + d}
         onClick={this.setDuration.bind(this, d)}>
         {d} min
@@ -57,7 +56,7 @@ export default class Timer extends React.Component {
 
     return (
       <div>
-        <div>{this.state.remainingSeconds} sec</div>
+        <div>{this.state.remainingSeconds} s</div>
         <div>
           <button
             disabled={this.state.remainingSeconds == this.state.durationMinutes * 60
