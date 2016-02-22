@@ -3,38 +3,34 @@ import Radium from 'radium';
 import bellFile from './bell.wav';
 
 var bell = new Audio(bellFile);
-var myState = {};
+const initialTime = 5;
 
 @Radium
 export default class Timer extends React.Component {
 
-  checkTime() {
-    this.setState(myState);
-    myState.remainingSeconds--;
+  decrementAndCheck() {
+    this.setState({remainingSeconds: --this.state.remainingSeconds});
 
-    if(myState.remainingSeconds < 0) {
+    if(this.state.remainingSeconds <= 0) {
       this.stop();
       bell.play();
     }
   }
 
   reset() {
+    this.setState({remainingSeconds: initialTime});
     this.stop();
-    myState.remainingSeconds = 5;
-    this.checkTime();
   }
 
   start() {
-    myState.counting = true;
-    this.setState(myState);
+    this.setState({counting: true});
     this.timer = window.setInterval(function () {
-      this.checkTime();
+      this.decrementAndCheck();
     }.bind(this), 1000);
   }
 
   stop() {
-    this.counting = false;
-    this.setState(myState);
+    this.setState({counting: false});
     window.clearInterval(this.timer);
   }
 
@@ -62,9 +58,24 @@ export default class Timer extends React.Component {
       <div>
         <div style={timeStyle}>{this.state.remainingSeconds}</div>
         <div>
-          <button style={buttonStyle} disabled={this.state.counting} ref='reset' onClick={this.reset.bind(this)}>Reset</button>
-          <button style={buttonStyle} disabled={this.state.counting} ref='start' onClick={this.start.bind(this)}>Start</button>
-          <button style={buttonStyle} disabled={!this.state.counting} ref='stop' onClick={this.stop.bind(this)}>Stop</button>
+          <button style={buttonStyle}
+            disabled={this.state.remainingSeconds == initialTime}
+            ref='reset'
+            onClick={this.reset.bind(this)}>
+              Reset
+          </button>
+          <button style={buttonStyle}
+            disabled={this.state.counting || this.state.remainingSeconds == 0}
+            ref='start'
+            onClick={this.start.bind(this)}>
+              Start
+          </button>
+          <button style={buttonStyle}
+            disabled={!this.state.counting}
+            ref='stop'
+            onClick={this.stop.bind(this)}>
+              Stop
+          </button>
         </div>
       </div>
     );
