@@ -8,4 +8,4 @@ Exercise your brain -- together.
 
 # Web
 
-`npm start`, then go to <http://localhost:8080/>.
+`npm start`, then go to <http://localhost:3002/>.
