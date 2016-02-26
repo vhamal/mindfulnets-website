@@ -4,15 +4,16 @@ var webpack = require('webpack');
 var merge = require('webpack-merge');
 
 const TARGET = process.env.npm_lifecycle_event;
-const PATHS = {
-  app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build')
-};
+const appPath = path.join(__dirname, 'app');
 
 process.env.BABEL_ENV = TARGET;
 
 var common = {
-  entry: PATHS.app,
+  entry: appPath,
+  output: {
+    path: path.join(__dirname, 'build'),
+    filename: 'bundle.js'
+  },
   resolve: {
     extensions: ['','.js','.jsx','.wav']
   },
@@ -21,17 +22,17 @@ var common = {
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: PATHS.app
+        include: appPath
       },
       {
         test: /\.jsx?$/,
         loader: 'babel',
-        include: PATHS.app
+        include: appPath
       },
       {
         test: /\.wav$/,
         loader: 'file',
-        include: PATHS.app
+        include: appPath
       }
     ]
   },
@@ -57,5 +58,5 @@ if(TARGET === 'start' || !TARGET) {
     plugins: [
       new webpack.HotModuleReplacementPlugin()
     ]
-  })
+  });
 }

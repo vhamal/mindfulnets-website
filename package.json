@@ -20,7 +20,8 @@
     "webpack-merge": "^0.3.2"
   },
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack && node server",
+    "dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
