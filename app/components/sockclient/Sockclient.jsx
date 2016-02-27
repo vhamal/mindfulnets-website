@@ -7,6 +7,7 @@ export default class Timer extends React.Component {
 
   componentWillMount() {
     this.setState({msg: 'Socket messages will show up here'});
+    // TODO socket should be able to reconnect when backend is restarted
     eb.onopen = () => {
       eb.registerHandler('notif', (error, message) => {
         this.setState({msg: message.body});
