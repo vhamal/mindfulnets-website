@@ -16,13 +16,13 @@
     "html-webpack-plugin": "^1.7.0",
     "react-transform-hmr": "^1.0.1",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0",
-    "webpack-merge": "^0.3.2"
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.7.3"
   },
   "scripts": {
     "start": "webpack && node server",
-    "dev": "webpack-dev-server"
+    "//": "Script \"dev\": \"webpack-dev-server\" yields error. Run it directly on command-line."
   },
   "repository": {
     "type": "git",
