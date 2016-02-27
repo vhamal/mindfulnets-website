@@ -43,7 +43,7 @@ var common = {
   ]
 };
 
-if(TARGET === 'start' || !TARGET) {
+if(TARGET === 'dev' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {
@@ -53,7 +53,7 @@ if(TARGET === 'start' || !TARGET) {
       progress: true,
       stats: 'errors-only',
       host: process.env.HOST,
-      port: process.env.PORT
+      port: process.env.PORT || 3002
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()

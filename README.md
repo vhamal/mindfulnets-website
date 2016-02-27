@@ -6,6 +6,6 @@ Exercise your brain -- together.
 
 `npm install`
 
-# Web
+# Execution
 
-`npm start`, then go to <http://localhost:3002/>.
+`npm start` or `npm dev`, then go to <http://localhost:3002/>.

@@ -6,6 +6,7 @@
   "dependencies": {
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "sockjs-client": "^1.0.3",
     "vertx3-eventbus-client": "^3.1.0"
   },
   "devDependencies": {
@@ -22,7 +23,7 @@
   },
   "scripts": {
     "start": "webpack && node server",
-    "//": "Script \"dev\": \"webpack-dev-server\" yields error. Run it directly on command-line."
+    "dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
