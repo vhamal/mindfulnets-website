@@ -48,7 +48,7 @@ export default class Timer extends React.Component {
     var durationButtons = durationMinutes.map(d =>
       <button
         disabled={this.state.remainingSeconds == d*60 || this.state.started}
-        ref={'duration' + d}
+        key={'duration' + d}
         onClick={this.setDuration.bind(this, d)}>
         {d} min
       </button>
@@ -61,13 +61,11 @@ export default class Timer extends React.Component {
           <button
             disabled={this.state.remainingSeconds == this.state.durationMinutes * 60
               && !this.state.started}
-            ref='reset'
             onClick={this.reset.bind(this)}>
               Reset
           </button>
           <button
             disabled={this.state.remainingSeconds == 0}
-            ref='startPause'
             onClick={this.startPause.bind(this)}>
               {this.state.started ? "Pause" : "Start"}
           </button>
