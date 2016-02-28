@@ -1,4 +1,5 @@
 import React from 'react';
+import practices from '../practices';
 
 var bell = new Audio(require('./bell.wav'));
 const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
@@ -30,6 +31,9 @@ export default class Timer extends React.Component {
       this.timer = window.setInterval(function () {
         this.decrementAndCheck();
       }.bind(this), 1000);
+      // implementation similar to the above but in the backend
+      // TODO cleanup/remove the local logic
+      practices.post(this.state.durationMinutes * 60);
     }
   }
 
