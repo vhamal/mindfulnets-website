@@ -1,51 +1,69 @@
 import React from 'react';
+import EventBus from 'vertx3-eventbus-client';
 import practices from '../practices';
 
+var eb = new EventBus('http://localhost:3001/eventbus');
 var bell = new Audio(require('./bell.wav'));
 const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
 
 export default class Timer extends React.Component {
 
-  decrementAndCheck() {
-    this.setState({remainingSeconds: --this.state.remainingSeconds});
+  reset() {
+    practices.put({
+      totalSeconds: this.state.totalSeconds,
+      remainingSeconds: this.state.totalSeconds,
+      started: false
+    });
+  }
 
-    if(this.state.remainingSeconds <= 0) {
-      this.startPause();
+  startPause() {
+    practices.put({
+      totalSeconds: this.state.totalSeconds,
+      remainingSeconds: this.state.remainingSeconds,
+      started: !this.state.started
+    });
+  }
+
+  setTotalSeconds(totalSeconds) {
+    practices.put({
+      totalSeconds,
+      remainingSeconds: totalSeconds
+    });
+  }
+
+  handleTotalSeconds(error, message) {
+    this.setState({totalSeconds: message.body});
+  }
+
+  handleRemainingSeconds(error, message) {
+    const remainingSeconds = message.body;
+    this.setState({ remainingSeconds });
+    if(remainingSeconds === 0) {
       bell.play();
     }
   }
 
-  reset() {
-    this.setState({remainingSeconds: this.durationMinutes * 60});
-    if (this.state && this.state.started) {
-      this.startPause();
-    }
-  }
-
-  startPause() {
-    if (this.state.started) {
-      this.setState({started: false});
-      window.clearInterval(this.timer);
-    } else {
-      this.setState({started: true});
-      this.timer = window.setInterval(function () {
-        this.decrementAndCheck();
-      }.bind(this), 1000);
-      // implementation similar to the above but in the backend
-      // TODO cleanup/remove the local logic
-      practices.post(this.state.durationMinutes * 60);
-    }
-  }
-
-  setDuration(durationMinutes) {
-    this.durationMinutes = durationMinutes;
-    this.setState({durationMinutes: durationMinutes});
-    this.reset();
+  handleStarted(error, message) {
+    this.setState({started: message.body});
   }
 
   componentWillMount() {
-    this.durationMinutes = durationMinutes[0];
-    this.setDuration(this.durationMinutes);
+    this.setState({
+      totalSeconds: durationMinutes[0]*60,
+      remainingSeconds: durationMinutes[0]*60,
+      started: false
+    });
+
+    // TODO socket should be able to reconnect when backend is restarted
+    eb.onopen = () => {
+      eb.registerHandler('timer.totalSeconds', this.handleTotalSeconds.bind(this));
+      eb.registerHandler('timer.remainingSeconds', this.handleRemainingSeconds.bind(this));
+      eb.registerHandler('timer.started', this.handleStarted.bind(this));
+    };
+  }
+
+  componentDidMount() {
+    this.reset();
   }
 
   render() {
@@ -53,19 +71,20 @@ export default class Timer extends React.Component {
       <button
         disabled={this.state.remainingSeconds == d*60 || this.state.started}
         key={'duration' + d}
-        onClick={this.setDuration.bind(this, d)}>
+        onClick={this.setTotalSeconds.bind(this, d*60)}>
         {d} min
       </button>
     );
 
     return (
       <div>
-        <div>{this.state.remainingSeconds} s</div>
+        <div>{this.state.remainingSeconds} / {this.state.totalSeconds} s</div>
+        <div>started: {`${this.state.started}`}</div>
         <div>
           <button
-            disabled={this.state.remainingSeconds == this.state.durationMinutes * 60
+            disabled={this.state.remainingSeconds == this.state.totalSeconds
               && !this.state.started}
-            onClick={this.reset.bind(this)}>
+              onClick={this.reset.bind(this)}>
               Reset
           </button>
           <button
