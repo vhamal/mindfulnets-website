@@ -2,10 +2,10 @@
 
 Exercise your brain -- together.
 
-# Installation
+## Installation
 
 `npm install`
 
-# Execution
+## Execution
 
 `npm start` or `npm dev`, then go to <http://localhost:3002/>.
