@@ -4,10 +4,14 @@
   "description": "Exercise your brain -- together",
   "license": "GPL-3.0",
   "dependencies": {
+    "bootstrap": "^3.3.6",
     "isomorphic-fetch": "^2.2.1",
+    "jquery": "^2.2.1",
     "react": "^0.14.3",
+    "react-bootstrap": "^0.28.3",
     "react-dom": "^0.14.3",
     "sockjs-client": "^1.0.3",
+    "url-loader": "^0.5.7",
     "vertx3-eventbus-client": "^3.1.0"
   },
   "devDependencies": {

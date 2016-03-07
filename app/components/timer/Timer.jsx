@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import EventBus from 'vertx3-eventbus-client';
 import practices from '../practices';
 
@@ -68,12 +69,12 @@ export default class Timer extends React.Component {
 
   render() {
     var durationButtons = durationMinutes.map(d =>
-      <button
+      <Button
         disabled={this.state.remainingSeconds == d*60 || this.state.started}
         key={'duration' + d}
         onClick={this.setTotalSeconds.bind(this, d*60)}>
         {d} min
-      </button>
+      </Button>
     );
 
     return (
@@ -81,17 +82,17 @@ export default class Timer extends React.Component {
         <div>{this.state.remainingSeconds} / {this.state.totalSeconds} s</div>
         <div>started: {`${this.state.started}`}</div>
         <div>
-          <button
+          <Button
             disabled={this.state.remainingSeconds == this.state.totalSeconds
               && !this.state.started}
               onClick={this.reset.bind(this)}>
               Reset
-          </button>
-          <button
+          </Button>
+          <Button
             disabled={this.state.remainingSeconds == 0}
             onClick={this.startPause.bind(this)}>
               {this.state.started ? "Pause" : "Start"}
-          </button>
+          </Button>
           {durationButtons}
         </div>
       </div>
