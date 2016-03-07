@@ -31,13 +31,6 @@ var common = {
   plugins: [
     new HtmlwebpackPlugin({
       title: 'Timer app'
-    }),
-    // jQuery need to be loaded in this special way as some modules
-    // e.g bootstrap expects it to be available through global window.jQuery
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery"
     })
   ]
 };

@@ -1,4 +1,3 @@
-import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-bootstrap';
 import './main.css';
