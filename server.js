@@ -1,15 +1,20 @@
-var express = require('express');
-var path = require('path');
+'use strict';
 
-var app = express();
+let express = require('express');
+let path = require('path');
 
-var port = 3002;
-var publicPath = path.resolve(__dirname, 'build');
+let app = express();
+
+const PORT = 3002;
+let publicPath = path.resolve(__dirname, 'build');
 
 // We point to our static assets
 app.use(express.static(publicPath));
 
 // And run the server
-app.listen(port, function () {
-  console.log('Server running on port ' + port);
+let server = app.listen(PORT, function () {
+    // TODO use require('os').hostname(); when backend CORS handler supports it
+    let host = 'localhost';
+    let port = server.address().port;
+    console.log('Server running on http://%s:%s in %s environment', host, port, app.set('env'));
 });
