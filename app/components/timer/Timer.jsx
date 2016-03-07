@@ -65,6 +65,7 @@ export default class Timer extends React.Component {
   }
 
   componentDidMount() {
+    // TODO shouldn't reset if a practice is already running in the backend
     this.reset();
   }
 
