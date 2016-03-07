@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup, PageHeader } from 'react-bootstrap';
 import EventBus from 'vertx3-eventbus-client';
 import practices from '../practices';
+import './Timer.css';
 
 var eb = new EventBus('http://localhost:3001/eventbus');
 var bell = new Audio(require('./bell.wav'));
@@ -78,10 +79,12 @@ export default class Timer extends React.Component {
     );
 
     return (
-      <div>
-        <div>{this.state.remainingSeconds} / {this.state.totalSeconds} s</div>
-        <div>started: {`${this.state.started}`}</div>
-        <div>
+      <div className='Timer-component'>
+        <PageHeader>
+          {this.state.remainingSeconds} / {this.state.totalSeconds} s
+          <p><small>started: {`${this.state.started}`}</small></p>
+        </PageHeader>
+        <ButtonGroup>
           <Button
             disabled={this.state.remainingSeconds == this.state.totalSeconds
               && !this.state.started}
@@ -94,7 +97,7 @@ export default class Timer extends React.Component {
               {this.state.started ? "Pause" : "Start"}
           </Button>
           {durationButtons}
-        </div>
+        </ButtonGroup>
       </div>
     );
   }
