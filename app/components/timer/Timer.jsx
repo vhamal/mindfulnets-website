@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, PageHeader } from 'react-bootstrap';
+import { Button, ButtonGroup, PageHeader, ProgressBar } from 'react-bootstrap';
 import EventBus from 'vertx3-eventbus-client';
 import practices from '../practices';
 import './Timer.css';
@@ -81,6 +81,7 @@ export default class Timer extends React.Component {
     return (
       <div className='Timer-component'>
         <PageHeader>
+          <ProgressBar now={this.state.remainingSeconds*100.0/this.state.totalSeconds} />
           {this.state.remainingSeconds} / {this.state.totalSeconds} s
           <p><small>started: {`${this.state.started}`}</small></p>
         </PageHeader>
