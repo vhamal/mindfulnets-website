@@ -3,7 +3,7 @@
 let config = require('config');
 let express = require('express');
 let path = require('path');
-let httpProxy = require('http-proxy');
+let proxy = require('http-proxy-middleware');
 
 let app = express();
 
@@ -13,11 +13,8 @@ let app = express();
 let frontendPath = path.join(__dirname, '../frontend/build');
 app.use(express.static(frontendPath));
 
-// Browser communicates with express server which proxies to backend.
-let proxy = httpProxy.createProxyServer();
-app.all('/api/*', (req, res) => {
-  proxy.web(req, res, { target: config.backend.url});
-});
+// Browser communicates with express server which proxies to backend (both HTTP and WS protocols)
+app.use(proxy(config.backend.url, { ws:true }));
 
 // And run the server
 let server = app.listen(config.website.port, function () {
