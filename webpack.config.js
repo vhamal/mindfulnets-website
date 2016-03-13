@@ -1,14 +1,13 @@
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
-var merge = require('webpack-merge');
 
 const TARGET = process.env.npm_lifecycle_event;
 const appPath = path.join(__dirname, 'app');
 
 process.env.BABEL_ENV = TARGET;
 
-var common = {
+var webpackConfig = {
   entry: appPath,
   output: {
     path: path.join(__dirname, 'build'),
@@ -36,22 +35,19 @@ var common = {
 };
 
 if(TARGET === 'dev' || !TARGET) {
-  module.exports = merge(common, {
-    devtool: 'eval-source-map',
-    devServer: {
-      historyApiFallback: true,
-      hot: true,
-      inline: true,
-      progress: true,
-      stats: 'errors-only',
-      host: process.env.HOST,
-      port: process.env.PORT || 3002
-    },
-    plugins: [
-      new webpack.HotModuleReplacementPlugin()
-    ]
-  });
-} else {
-  module.exports = common;
+  webpackConfig.devtool = 'eval-source-map';
+  webpackConfig.devServer = {
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    stats: 'errors-only',
+    host: process.env.HOST,
+    port: process.env.PORT || 3002
+  };
+  webpackConfig.plugins.push(
+    new webpack.HotModuleReplacementPlugin()
+  );
 }
 
+module.exports = webpackConfig;
