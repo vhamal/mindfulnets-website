@@ -11,6 +11,7 @@
     "react": "^0.14.3",
     "react-bootstrap": "^0.28.3",
     "react-dom": "^0.14.3",
+    "react-router": "^2.0.1",
     "sockjs-client": "^1.0.3",
     "url-loader": "^0.5.7",
     "vertx3-eventbus-client": "^3.1.0"
