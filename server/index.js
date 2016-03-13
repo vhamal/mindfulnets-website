@@ -4,6 +4,7 @@ let config = require('config');
 let express = require('express');
 let path = require('path');
 let proxy = require('http-proxy-middleware');
+let url = require('url');
 
 let app = express();
 
@@ -17,9 +18,6 @@ app.use(express.static(frontendPath));
 app.use(proxy(config.backend.url, { ws:true }));
 
 // And run the server
-let server = app.listen(config.website.port, function () {
-    // TODO use require('os').hostname(); when backend CORS handler supports it
-    let host = 'localhost';
-    let port = server.address().port;
-    console.log('Server running on http://%s:%s in %s environment', host, port, app.set('env'));
+app.listen(url.parse(config.website.url).port, () => {
+  console.log(`Server running on ${config.website.url} in ${app.set('env')} environment`);
 });
