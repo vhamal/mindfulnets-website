@@ -51,4 +51,7 @@ if(TARGET === 'dev' || !TARGET) {
       new webpack.HotModuleReplacementPlugin()
     ]
   });
+} else {
+  module.exports = common;
 }
+
