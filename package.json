@@ -5,6 +5,8 @@
   "license": "GPL-3.0",
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "config": "^1.19.0",
+    "http-proxy": "^1.13.2",
     "isomorphic-fetch": "^2.2.1",
     "react": "^0.14.3",
     "react-bootstrap": "^0.28.3",
@@ -24,6 +26,7 @@
   },
   "scripts": {
     "start": "webpack && node server",
+    "//": "can't use webpack-dev-server directly anymore, need to inject into express middleware",
     "dev": "webpack-dev-server"
   },
   "repository": {

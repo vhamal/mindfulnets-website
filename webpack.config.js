@@ -1,16 +1,18 @@
+var config = require('config');
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
 const TARGET = process.env.npm_lifecycle_event;
-const appPath = path.join(__dirname, 'app');
+const frontendSrcPath = path.join(__dirname, 'frontend/src');
+const frontendBuildPath = path.join(__dirname, 'frontend/build');
 
 process.env.BABEL_ENV = TARGET;
 
 var webpackConfig = {
-  entry: appPath,
+  entry: frontendSrcPath,
   output: {
-    path: path.join(__dirname, 'build'),
+    path: frontendBuildPath,
     filename: 'bundle.js'
   },
   resolve: {
@@ -19,8 +21,8 @@ var webpackConfig = {
   module: {
     loaders: [
       { test: /\.css$/, loaders: ['style', 'css'] },
-      { test: /\.jsx?$/, loader: 'babel', include: appPath },
-      { test: /\.wav$/, loader: 'file', include: appPath },
+      { test: /\.jsx?$/, loader: 'babel', include: frontendSrcPath },
+      { test: /\.wav$/, loader: 'file', include: frontendSrcPath },
       { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
@@ -43,7 +45,7 @@ if(TARGET === 'dev' || !TARGET) {
     progress: true,
     stats: 'errors-only',
     host: process.env.HOST,
-    port: process.env.PORT || 3002
+    port: config.website.port
   };
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin()

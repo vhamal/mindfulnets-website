@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const PRACTICES_URL = 'http://localhost:3001/api/practices';
+const PRACTICES_URL = 'http://localhost:3002/api/practices';
 
 module.exports = {
   put: body => {
