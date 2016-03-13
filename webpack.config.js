@@ -1,4 +1,3 @@
-var config = require('config');
 var dotenv = require('dotenv');
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
@@ -7,11 +6,8 @@ var url = require('url');
 
 dotenv.config({ silent: true });
 
-const TARGET = process.env.npm_lifecycle_event;
 const frontendSrcPath = path.join(__dirname, 'frontend/src');
 const frontendBuildPath = path.join(__dirname, 'frontend/build');
-
-process.env.BABEL_ENV = TARGET;
 
 var webpackConfig = {
   entry: frontendSrcPath,
@@ -43,8 +39,8 @@ var webpackConfig = {
   ]
 };
 
-if(TARGET === 'dev' || !TARGET) {
-  const websiteUrl = url.parse(config.website.url);
+if(process.env.NODE_ENV === 'development') {
+  const websiteUrl = url.parse(process.env.WEBSITE_URL);
   webpackConfig.devtool = 'eval-source-map';
   webpackConfig.devServer = {
     historyApiFallback: true,
