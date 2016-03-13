@@ -5,12 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
 
-main();
+const app = document.createElement('div');
 
-function main() {
-  const app = document.createElement('div');
+document.body.appendChild(app);
 
-  document.body.appendChild(app);
-
-  ReactDOM.render(<App />, app);
-}
+ReactDOM.render(<App />, app);
