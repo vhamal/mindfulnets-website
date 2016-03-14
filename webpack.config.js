@@ -1,10 +1,10 @@
+var dotenv = require('dotenv');
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 var url = require('url');
-var setupEnvironmentVariables = require('./server/env');
 
-setupEnvironmentVariables();
+dotenv.config({silent: true});
 
 const frontendSrcPath = path.join(__dirname, 'frontend/src');
 const frontendBuildPath = path.join(__dirname, 'frontend/build');
@@ -34,7 +34,7 @@ var webpackConfig = {
       title: 'Timer app'
     }),
     new webpack.EnvironmentPlugin([
-      "WEBSITE_HOST", "WEBSITE_PORT", "WEBSITE_URL"
+      "WEBSITE_URL"
     ])
   ]
 };
@@ -47,8 +47,8 @@ if(process.env.NODE_ENV === 'development') {
     inline: true,
     progress: true,
     stats: 'errors-only',
-    host: process.env.WEBSITE_HOST,
-    port: process.env.WEBSITE_PORT
+    host: 'localhost',
+    port: process.env.PORT
   };
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin()
