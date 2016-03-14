@@ -4,7 +4,8 @@ let dotenv = require('dotenv');
 let express = require('express');
 let morgan = require('morgan');
 let path = require('path');
-let proxy = require('http-proxy-middleware');
+//let proxy = require('http-proxy-middleware');
+let request = require('request');
 
 dotenv.config({silent: true});
 
@@ -20,11 +21,17 @@ let frontendPath = path.join(__dirname, '../frontend/build');
 app.use(express.static(frontendPath));
 
 // Browser communicates with express server which proxies to backend (both HTTP and WS protocols)
-app.use(proxy(process.env.BACKEND_URL, { ws:true }));
+//app.use(proxy(process.env.BACKEND_URL, { ws:true }));
+
+app.all('/api/*', (req, res) => {
+  console.log(`piping to ${process.env.BACKEND_URL}${req.url}`);
+  req
+    .pipe(request(`${process.env.BACKEND_URL}${req.url}`))
+    .pipe(res);
+});
 
 // And run the server
-console.log("port: ", process.env.PORT);
-let server = app.listen(process.env.PORT, () => {
+let server = app.listen(process.env.PORT, "0.0.0.0", () => {
   let port = server.address().port;
   console.log(`Server running on port ${port} in ${app.set('env')} environment`);
 });
