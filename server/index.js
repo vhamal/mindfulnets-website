@@ -2,12 +2,16 @@
 
 let dotenv = require('dotenv');
 let express = require('express');
+let morgan = require('morgan');
 let path = require('path');
 let proxy = require('http-proxy-middleware');
 
 dotenv.config({silent: true});
 
 let app = express();
+
+// logging
+app.use(morgan('combined'));
 
 // TODO inject webpack-dev-server middleware
 
