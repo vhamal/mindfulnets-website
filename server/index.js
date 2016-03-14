@@ -23,6 +23,7 @@ app.use(express.static(frontendPath));
 app.use(proxy(process.env.BACKEND_URL, { ws:true }));
 
 // And run the server
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on ${process.env.WEBSITE_URL} in ${app.set('env')} environment`);
+let server = app.listen(process.env.PORT, () => {
+  let port = server.address().port;
+  console.log(`Server running on port ${port} in ${app.set('env')} environment`);
 });
