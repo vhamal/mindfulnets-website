@@ -4,9 +4,9 @@ let dotenv = require('dotenv');
 let express = require('express');
 let path = require('path');
 let proxy = require('http-proxy-middleware');
-let url = require('url');
+let setupEnvironmentVariables = require('./env');
 
-dotenv.config({ silent: true });
+setupEnvironmentVariables();
 
 let app = express();
 
@@ -20,6 +20,6 @@ app.use(express.static(frontendPath));
 app.use(proxy(process.env.BACKEND_URL, { ws:true }));
 
 // And run the server
-app.listen(url.parse(process.env.WEBSITE_URL).port, () => {
-  console.log(`Server running on ${process.env.WEBSITE_URL} in ${app.set('env')} environment`);
+app.listen(process.env.WEBSITE_PORT, () => {
+  console.log(`Server running on ${process.env.WESITE_URL} in ${app.set('env')} environment`);
 });
