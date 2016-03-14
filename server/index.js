@@ -31,7 +31,7 @@ app.all('/api/*', (req, res) => {
 });
 
 // And run the server
-let server = app.listen(process.env.PORT, "0.0.0.0", () => {
+let server = app.listen(process.env.PORT, () => {
   let port = server.address().port;
   console.log(`Server running on port ${port} in ${app.set('env')} environment`);
 });
