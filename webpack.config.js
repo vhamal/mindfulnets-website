@@ -31,7 +31,8 @@ var webpackConfig = {
   },
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'Timer app'
+      title: 'Timer app',
+      favicon: `${frontendSrcPath}/images/favicon.ico`
     }),
     new webpack.EnvironmentPlugin([
       "WEBSITE_URL"
