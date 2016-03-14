@@ -21,5 +21,5 @@ app.use(proxy(process.env.BACKEND_URL, { ws:true }));
 
 // And run the server
 app.listen(process.env.WEBSITE_PORT, () => {
-  console.log(`Server running on ${process.env.WESITE_URL} in ${app.set('env')} environment`);
+  console.log(`Server running on ${process.env.WEBSITE_URL} in ${app.set('env')} environment`);
 });
