@@ -6,6 +6,20 @@ Exercise your brain -- together.
 
 `npm install`
 
+Create an `.env` file with contents:
+
+```
+BACKEND_URL=http://localhost:3001
+PORT=3002
+```
+
 ## Execution
 
-`npm start` or `npm dev`, then go to <http://localhost:3002/>.
+- start the [backend](/mindfulnets-backend) locally
+- `npm start`, then go to <http://localhost:3002/>.
+
+## Development
+
+- `npm run dev` to regenerate static file and start the web server
+
+Hot code reloading is not yet implemented.
