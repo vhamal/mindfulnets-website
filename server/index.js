@@ -22,7 +22,10 @@ app.use(express.static(frontendPath));
 // Browser communicates with express server which proxies to backend (both HTTP and WS protocols)
 
 var proxy = new httpProxy.createProxyServer({
-  target: process.env.BACKEND_URL
+  target: process.env.BACKEND_URL,
+  headers: {
+    host: process.env.BACKEND_URL
+  }
 });
 
 var httpProxyMw = function (req, res) {
