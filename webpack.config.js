@@ -35,7 +35,7 @@ var webpackConfig = {
       favicon: `${frontendSrcPath}/images/favicon.ico`
     }),
     new webpack.EnvironmentPlugin([
-      "WEBSITE_URL"
+      "BACKEND_URL"
     ])
   ]
 };

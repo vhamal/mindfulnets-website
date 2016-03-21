@@ -4,7 +4,7 @@ import EventBus from 'vertx3-eventbus-client';
 import practices from '../practices';
 import './Timer.css';
 
-var eb = new EventBus(`${process.env.WEBSITE_URL}/eventbus`);
+var eb = new EventBus(`${process.env.BACKEND_URL}/eventbus`);
 var bell = new Audio(require('./bell.wav'));
 const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
 

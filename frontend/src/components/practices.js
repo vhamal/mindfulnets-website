@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-const PRACTICES_URL = `${process.env.WEBSITE_URL}/api/practices`;
+const PRACTICES_URL = `${process.env.BACKEND_URL}/api/practices`;
 
 module.exports = {
   put: body => {
