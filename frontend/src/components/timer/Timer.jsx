@@ -4,7 +4,7 @@ import EventBus from 'vertx3-eventbus-client';
 import practices from '../practices';
 import './Timer.css';
 
-//var eb = new EventBus(`${process.env.WEBSITE_URL}/eventbus`);
+var eb = new EventBus(`${process.env.WEBSITE_URL}/eventbus`);
 var bell = new Audio(require('./bell.wav'));
 const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
 
@@ -57,11 +57,11 @@ export default class Timer extends React.Component {
     });
 
     // TODO socket should be able to reconnect when backend is restarted
-    //eb.onopen = () => {
-    //  eb.registerHandler('timer.totalSeconds', this.handleTotalSeconds.bind(this));
-    //  eb.registerHandler('timer.remainingSeconds', this.handleRemainingSeconds.bind(this));
-    //  eb.registerHandler('timer.started', this.handleStarted.bind(this));
-    //};
+    eb.onopen = () => {
+     eb.registerHandler('timer.totalSeconds', this.handleTotalSeconds.bind(this));
+     eb.registerHandler('timer.remainingSeconds', this.handleRemainingSeconds.bind(this));
+     eb.registerHandler('timer.started', this.handleStarted.bind(this));
+    };
   }
 
   componentDidMount() {

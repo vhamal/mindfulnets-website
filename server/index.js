@@ -3,12 +3,11 @@
 let dotenv = require('dotenv');
 let express = require('express');
 let morgan = require('morgan');
+let http = require('http');
+let httpProxy = require('http-proxy');
 let path = require('path');
-//let proxy = require('http-proxy-middleware');
-let request = require('request');
 
 dotenv.config({silent: true});
-
 let app = express();
 
 // logging
@@ -21,17 +20,27 @@ let frontendPath = path.join(__dirname, '../frontend/build');
 app.use(express.static(frontendPath));
 
 // Browser communicates with express server which proxies to backend (both HTTP and WS protocols)
-//app.use(proxy(process.env.BACKEND_URL, { ws:true }));
 
-app.all('/api/*', (req, res) => {
-  console.log(`piping to ${process.env.BACKEND_URL}${req.url}`);
-  req
-    .pipe(request(`${process.env.BACKEND_URL}${req.url}`))
-    .pipe(res);
+var proxy = new httpProxy.createProxyServer({
+  target: process.env.BACKEND_URL
 });
 
+var httpProxyMw = function (req, res) {
+  proxy.web(req, res);
+};
+
+app.use(httpProxyMw);
+
+let server = http.createServer(app);
+
+// Listen to the `upgrade` event and proxy the WebSocket requests as well
+let wsProxyMw = function (req, socket, head) {
+  proxy.ws(req, socket, head);
+};
+server.on('upgrade', wsProxyMw);
+
 // And run the server
-let server = app.listen(process.env.PORT, () => {
-  let port = server.address().port;
-  console.log(`Server running on port ${port} in ${app.set('env')} environment`);
+server.listen(process.env.PORT, () => {
+ let port = server.address().port;
+ console.log(`Server running on port ${port} in ${app.set('env')} environment`);
 });
