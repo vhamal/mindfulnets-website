@@ -15,7 +15,7 @@ PORT=3002
 
 ## Execution
 
-- start the [backend](/mindfulnets-backend) locally
+- start the [backend](https://github.com/sedubois/mindfulnets-backend) locally
 - `npm start`, then go to <http://localhost:3002/>.
 
 ## Development
