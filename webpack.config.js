@@ -40,7 +40,7 @@ var webpackConfig = {
   ]
 };
 
-if(process.env.NODE_ENV === 'development') {
+if(process.env.npm_lifecycle_event === 'dev') {
   webpackConfig.devtool = 'eval-source-map';
   webpackConfig.devServer = {
     historyApiFallback: true,

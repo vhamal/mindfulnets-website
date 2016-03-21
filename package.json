@@ -29,7 +29,7 @@
   "scripts": {
     "start": "node server",
     "postinstall": "node_modules/.bin/webpack",
-    "dev": "npm run postinstall && npm start"
+    "dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",

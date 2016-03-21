@@ -20,6 +20,6 @@ PORT=3002
 
 ## Development
 
-- `npm run dev` to regenerate static file and start the web server
+For hot code reloading, execute `npm run dev` instead of `npm start`.
 
-Hot code reloading is not yet implemented.
+If you do still use `npm start`, make sure to execute `webpack` whenever static files are modified.
