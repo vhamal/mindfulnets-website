@@ -1,10 +1,9 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'react-bootstrap';
-
-import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
-import App from './App';
+import * as React from "react";
+import {render} from "react-dom";
+import {Router, Route, browserHistory} from "react-router";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.css";
+import "react-bootstrap";
 
 const app = document.createElement('div');
 

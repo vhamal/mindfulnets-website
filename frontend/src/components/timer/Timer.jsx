@@ -1,17 +1,17 @@
-import React from 'react';
-import { Button, ButtonGroup, PageHeader, ProgressBar } from 'react-bootstrap';
-import EventBus from 'vertx3-eventbus-client';
-import practices from '../../lib/practices';
-import './Timer.css';
+import * as React from "react";
+import {Button, ButtonGroup, PageHeader, ProgressBar} from "react-bootstrap";
+import EventBus from "vertx3-eventbus-client";
+import {putPractice} from "../../lib/practices";
+import "./Timer.css";
 
-var eb = new EventBus(`${process.env.BACKEND_URL}/eventbus`);
-var bell = new Audio(require('./bell.wav'));
+const eb = new EventBus(`${process.env.BACKEND_URL}/eventbus`);
+const bell = new Audio(require('./bell.wav'));
 const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
 
 export default class Timer extends React.Component {
 
   reset() {
-    practices.put({
+    putPractice({
       totalSeconds: this.state.totalSeconds,
       remainingSeconds: this.state.totalSeconds,
       started: false
@@ -19,7 +19,7 @@ export default class Timer extends React.Component {
   }
 
   startPause() {
-    practices.put({
+    putPractice({
       totalSeconds: this.state.totalSeconds,
       remainingSeconds: this.state.remainingSeconds,
       started: !this.state.started
@@ -27,7 +27,7 @@ export default class Timer extends React.Component {
   }
 
   setTotalSeconds(totalSeconds) {
-    practices.put({
+    putPractice({
       totalSeconds,
       remainingSeconds: totalSeconds
     });
