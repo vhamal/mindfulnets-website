@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import morgan from 'morgan';
+const dotenv = require("dotenv");
+const express = require("express");
+const morgan = require("morgan");
 
 dotenv.config({silent: true});
-let app = express();
+const app = express();
 
 // logging
 app.use(morgan('combined'));
@@ -14,7 +14,7 @@ app.use(morgan('combined'));
 app.use(express.static(`${__dirname}/../frontend/build`));
 
 // And run the server
-let server = app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
  const port = server.address().port;
  console.log(`Server running on port ${port} in ${app.set('env')} environment`);
 });
