@@ -31,7 +31,7 @@ var webpackConfig = {
   },
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'Timer app',
+      title: 'Mindfulnets',
       favicon: `${frontendSrcPath}/images/favicon.ico`
     }),
     new webpack.EnvironmentPlugin([
