@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup, PageHeader, ProgressBar } from 'react-bootstrap';
 import EventBus from 'vertx3-eventbus-client';
-import practices from '../practices';
+import practices from '../../lib/practices';
 import './Timer.css';
 
 var eb = new EventBus(`${process.env.BACKEND_URL}/eventbus`);
