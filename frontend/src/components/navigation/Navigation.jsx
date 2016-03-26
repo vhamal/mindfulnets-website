@@ -1,8 +1,15 @@
 import * as React from "react";
 import {Nav, Navbar, NavItem} from "react-bootstrap";
-import userName from "../../lib/userName";
+import {getUserId} from "../../lib/user";
 
 export default class NavBar extends React.Component {
+  componentWillMount() {
+    this.setState({});
+
+    getUserId()
+      .then(userId => this.setState({ userId }));
+  }
+
   render() {
     return (
       <Navbar fixedTop>
@@ -13,7 +20,7 @@ export default class NavBar extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Nav pullRight>
-          <NavItem>{userName()}</NavItem>
+          <NavItem>{this.state.userId}</NavItem>
         </Nav>
       </Navbar>
     )

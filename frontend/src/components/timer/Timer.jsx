@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Button, ButtonGroup, PageHeader, ProgressBar} from "react-bootstrap";
-import {putPractice} from "../../lib/practices";
+import {updatePractice} from "../../lib/practice";
 import eventBus from "../../lib/eventBus";
 import "./Timer.css";
 
@@ -10,7 +10,7 @@ const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
 export default class Timer extends React.Component {
 
   reset() {
-    putPractice({
+    updatePractice({
       totalSeconds: this.state.totalSeconds,
       remainingSeconds: this.state.totalSeconds,
       started: false
@@ -18,7 +18,7 @@ export default class Timer extends React.Component {
   }
 
   startPause() {
-    putPractice({
+    updatePractice({
       totalSeconds: this.state.totalSeconds,
       remainingSeconds: this.state.remainingSeconds,
       started: !this.state.started
@@ -26,7 +26,7 @@ export default class Timer extends React.Component {
   }
 
   setTotalSeconds(totalSeconds) {
-    putPractice({
+    updatePractice({
       totalSeconds,
       remainingSeconds: totalSeconds
     });
