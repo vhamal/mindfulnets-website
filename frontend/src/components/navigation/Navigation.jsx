@@ -7,7 +7,8 @@ export default class NavBar extends React.Component {
     this.setState({user: {}});
 
     getUser()
-      .then(user => this.setState({user}));
+      .then(user => user.name)
+      .then(userName => this.setState({userName}));
   }
 
   render() {
@@ -20,7 +21,7 @@ export default class NavBar extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Nav pullRight>
-          <NavItem>{this.state.user.name}</NavItem>
+          <NavItem>{this.state.userName}</NavItem>
         </Nav>
       </Navbar>
     )

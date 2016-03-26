@@ -12,10 +12,7 @@ export default class UserInfo extends React.Component {
     this.setState({ users: [] });
 
     getUsers()
-      .then(users => {
-        console.log("Got users", users);
-        this.setState({users});
-      });
+      .then(users => this.setState({users}));
 
     eventBus.onopen = () => {
       eventBus.registerHandler('app.users', this.handleUsers.bind(this));
