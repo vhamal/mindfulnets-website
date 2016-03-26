@@ -24,7 +24,7 @@
     "sockjs-client": "^1.0.3",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "vertx3-eventbus-client": "^3.1.0",
+    "vertx3-eventbus-client": "^3.2.1",
     "webpack": "^1.12.14"
   },
   "devDependencies": {
