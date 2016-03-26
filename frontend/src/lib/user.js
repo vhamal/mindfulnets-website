@@ -1,17 +1,20 @@
-import callBackend from "./callBackend";
+import fetch from "./fetch";
+
+const BASE_URL = "/users";
 
 export default {
-  getUserId() {
+  getUser() {
     if (localStorage.userId) {
-      return callBackend(`/users/${localStorage.userId}`)
-        .then(response => response.json())
-        .then(user => user.id);
+      return fetch(`${BASE_URL}/${localStorage.userId}`);
     }
-    return callBackend("/users", {method: 'post'})
-      .then(response => response.json())
+    return fetch(BASE_URL, {method: 'post'})
       .then(user => {
         localStorage.userId = user.id;
-        return user.id;
+        return user;
       });
+  },
+
+  getUsers() {
+    return fetch(BASE_URL);
   }
 };

@@ -1,5 +1,6 @@
 import * as React from "react";
 import eventBus from "../../lib/eventBus";
+import {getUsers} from "../../lib/user";
 import "./UserList.css";
 
 export default class UserInfo extends React.Component {
@@ -10,6 +11,12 @@ export default class UserInfo extends React.Component {
   componentWillMount() {
     this.setState({ users: [] });
 
+    getUsers()
+      .then(users => {
+        console.log("Got users", users);
+        this.setState({users});
+      });
+
     eventBus.onopen = () => {
       eventBus.registerHandler('app.users', this.handleUsers.bind(this));
     };
@@ -18,7 +25,7 @@ export default class UserInfo extends React.Component {
   render() {
     return (
       <div className="UserList">
-        {this.state.users.map(user => <div>{user}</div>)}
+        {this.state.users.map(user => <div key={user.id}>{user.name}</div>)}
       </div>
     )
   }

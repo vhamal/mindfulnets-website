@@ -6,5 +6,6 @@ export default (relativeUrl, { body, method = 'get' } = {}) => {
   return fetch(`${BACKEND_URL}/api${relativeUrl}`, {
     method,
     body: JSON.stringify(body)
-  });
+  })
+    .then(response => response.json());
 };
