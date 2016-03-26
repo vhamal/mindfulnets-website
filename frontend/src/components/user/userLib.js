@@ -1,4 +1,4 @@
-import fetch from "./fetch";
+import fetch from "../../lib/fetch";
 
 const BASE_URL = "/users";
 

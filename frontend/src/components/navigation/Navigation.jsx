@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Nav, Navbar, NavItem} from "react-bootstrap";
-import {getUser} from "../../lib/user";
+import {getUser} from "../user/userLib";
 
 export default class NavBar extends React.Component {
   componentWillMount() {

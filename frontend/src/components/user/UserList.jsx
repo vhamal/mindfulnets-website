@@ -1,6 +1,6 @@
 import * as React from "react";
 import eventBus from "../../lib/eventBus";
-import {getUsers} from "../../lib/user";
+import {getUsers} from "./userLib";
 import "./UserList.css";
 
 export default class UserInfo extends React.Component {
