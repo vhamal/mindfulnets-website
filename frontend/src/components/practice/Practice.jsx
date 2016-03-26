@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Button, ButtonGroup, PageHeader, ProgressBar} from "react-bootstrap";
-import {updatePractice} from "./practiceLib";
+import {reset, startPause} from "./practiceLib";
 import eventBus from "../../lib/eventBus";
 import "./Practice.css";
 
@@ -8,29 +8,6 @@ const bell = new Audio(require('./bell.wav'));
 const durationMinutes = [.1, 5, 10, 15, 20, 30, 45, 60];
 
 export default class Practice extends React.Component {
-
-  reset() {
-    updatePractice({
-      totalSeconds: this.state.totalSeconds,
-      remainingSeconds: this.state.totalSeconds,
-      started: false
-    });
-  }
-
-  startPause() {
-    updatePractice({
-      totalSeconds: this.state.totalSeconds,
-      remainingSeconds: this.state.remainingSeconds,
-      started: !this.state.started
-    });
-  }
-
-  setTotalSeconds(totalSeconds) {
-    updatePractice({
-      totalSeconds,
-      remainingSeconds: totalSeconds
-    });
-  }
 
   handleTotalSeconds(error, message) {
     this.setState({totalSeconds: message.body});
@@ -65,7 +42,7 @@ export default class Practice extends React.Component {
 
   componentDidMount() {
     // TODO shouldn't reset if a practice is already running in the backend
-    this.reset();
+    reset(this.state.totalSeconds);
   }
 
   render() {
@@ -73,7 +50,7 @@ export default class Practice extends React.Component {
       <Button
         disabled={this.state.remainingSeconds == d*60 || this.state.started}
         key={'duration' + d}
-        onClick={this.setTotalSeconds.bind(this, d*60)}>
+        onClick={reset(d*60)}>
         {d} min
       </Button>
     );
@@ -89,12 +66,12 @@ export default class Practice extends React.Component {
           <Button
             disabled={this.state.remainingSeconds == this.state.totalSeconds
               && !this.state.started}
-              onClick={this.reset.bind(this)}>
+              onClick={reset(this.state.totalSeconds)}>
               Reset
           </Button>
           <Button
             disabled={this.state.remainingSeconds == 0}
-            onClick={this.startPause.bind(this)}>
+            onClick={startPause(this.state.totalSeconds, this.state.remainingSeconds, !this.state.started)}>
               {this.state.started ? "Pause" : "Start"}
           </Button>
           {durationButtons}

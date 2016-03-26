@@ -1,5 +1,28 @@
 import fetch from "./../../lib/fetch";
 
-module.exports = {
-  updatePractice: body => fetch("/practices", {method: 'put', body})
+export default {
+
+  reset(totalSeconds) {
+    return () => {
+      updatePractice({
+        totalSeconds,
+        remainingSeconds: totalSeconds,
+        started: false
+      });
+    }
+  },
+
+  startPause(totalSeconds, remainingSeconds, started) {
+    return () => {
+      updatePractice({
+        totalSeconds,
+        remainingSeconds,
+        started
+      });
+    }
+  }
 };
+
+function updatePractice(body) {
+  return fetch("/practices", {method: 'put', body});
+}
