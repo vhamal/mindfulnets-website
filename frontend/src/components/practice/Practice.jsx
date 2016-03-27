@@ -33,11 +33,11 @@ export default class Practice extends React.Component {
     });
 
     // TODO socket should be able to reconnect when backend is restarted
-    eventBus.onopen = () => {
-     eventBus.registerHandler('app.practice.totalSeconds', this.handleTotalSeconds.bind(this));
-     eventBus.registerHandler('app.practice.remainingSeconds', this.handleRemainingSeconds.bind(this));
-     eventBus.registerHandler('app.practice.started', this.handleStarted.bind(this));
-    };
+    eventBus.registerHandlersOnOpen(() => {
+      eventBus.registerHandler('app.practice.totalSeconds', this.handleTotalSeconds.bind(this));
+      eventBus.registerHandler('app.practice.remainingSeconds', this.handleRemainingSeconds.bind(this));
+      eventBus.registerHandler('app.practice.started', this.handleStarted.bind(this));
+    });
   }
 
   componentDidMount() {

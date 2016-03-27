@@ -4,8 +4,8 @@ import {getUsers} from "./userLib";
 import "./UserList.css";
 
 export default class UserInfo extends React.Component {
-  handleUsers(error, message) {
-    this.setState({ users: message.body });
+  handleNewUser(error, message) {
+    this.setState({ users: this.state.users.concat([JSON.parse(message.body)]) });
   }
 
   componentWillMount() {
@@ -14,9 +14,9 @@ export default class UserInfo extends React.Component {
     getUsers()
       .then(users => this.setState({users}));
 
-    eventBus.onopen = () => {
-      eventBus.registerHandler('app.users', this.handleUsers.bind(this));
-    };
+    eventBus.registerHandlersOnOpen(() => {
+      eventBus.registerHandler('app.users.new', this.handleNewUser.bind(this));
+    });
   }
 
   render() {
